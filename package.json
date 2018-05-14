@@ -1,14 +1,18 @@
 {
   "name": "digitalpark-blog-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.9.3"
+  },
   "description": "Blog API for DigitalPark",
   "main": "server.js",
   "scripts": {
-    "start:dev": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EriksonMurrugarra/digitalpark-blog-api.git"
+    "url": "https://github.com/EriksonMurrugarra/digitalpark-blog-api.git"
   },
   "author": "Erikson Murrugarra <erikson.murrugarra@gmail.com>",
   "license": "ISC",
