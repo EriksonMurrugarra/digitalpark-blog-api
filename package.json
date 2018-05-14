@@ -1,0 +1,26 @@
+{
+  "name": "digitalpark-blog-api",
+  "version": "1.0.0",
+  "description": "Blog API for DigitalPark",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EriksonMurrugarra/digitalpark-blog-api.git"
+  },
+  "author": "Erikson Murrugarra <erikson.murrugarra@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EriksonMurrugarra/digitalpark-blog-api/issues"
+  },
+  "homepage": "https://github.com/EriksonMurrugarra/digitalpark-blog-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.0"
+  }
+}
