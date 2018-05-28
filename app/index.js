@@ -11,6 +11,9 @@ const api = require('./api');
 // app instance
 const app = express();
 
+app.use((req, res, next) => {
+  next();
+});
 app.use(cors());
 app.use(compression());
 app.use(bodyParser.json());
