@@ -10,6 +10,7 @@ const postSchema = new Schema({
   description: { type: String, required: true },
   content: { type: String, required: true },
   topics: { type: [], get: getTopics, set: setTopics },
+  author: { type: String, required: true }
 }, { timestamps: true });
 
 module.exports = mongoose.model('blog', postSchema);

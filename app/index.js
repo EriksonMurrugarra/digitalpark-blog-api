@@ -11,8 +11,8 @@ const api = require('./api');
 // app instance
 const app = express();
 
-app.use((req, res, next) => {
-  next();
+app.use((err, req, res, next) => {
+  return res.status(500).send(err);
 });
 app.use(cors());
 app.use(compression());
@@ -21,6 +21,6 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.use('/api', api);
+app.use('/api/v1', api);
 
 module.exports = app;
