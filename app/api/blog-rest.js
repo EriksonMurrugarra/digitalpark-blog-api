@@ -4,7 +4,7 @@ const Topic = require('../db/models/topic');
 const saveTopics = topics => {
   const topicList = topics.split(",");
   for (let tp in topicList) {
-    const topic = topicList[tp];
+    const topic = topicList[tp].trim();
     Topic.findOneAndUpdate({ topic }, { topic }, { upsert: true}, (err, topic) => { });
   }
 }
@@ -13,7 +13,7 @@ module.exports.createPost = (req, res, next) => {
   const blog = new Blog(req.body);
 
   blog.author = req.user.email;
-  console.log(blog);
+  
   blog.save().then(post => {
     saveTopics(post.topics);
   	res.json(post);

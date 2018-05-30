@@ -4,15 +4,17 @@ const config = require('../config');
 
 const generateToken = user => {
   const payload = { 
-    email: user.email
+    email: user.email,
+    roles: user.roles
   };
 
-  const token = jwt.sign(payload, config.authSecret, { expiresIn: '6h' });
+  const token = jwt.sign(payload, config.authSecret, { expiresIn: '1000h' });
 
   return {
     accessToken: token,
     fullName: user.fullName,
-    email: user.email
+    email: user.email,
+    roles: user.roles
   };
 }
 
@@ -60,7 +62,8 @@ module.exports.getPrincipal = async (req, res, next) => {
     return res.json({
       fullName: user.fullName,
       name: user.name,
-      email: user.email
+      email: user.email,
+      roles: user.roles
     });
   }
 

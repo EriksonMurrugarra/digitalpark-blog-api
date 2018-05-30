@@ -1,5 +1,8 @@
 const express = require('express');
 const auth = require('express-jwt');
+const guard = require('express-jwt-permissions')({
+  permissionsProperty: 'roles'
+});
 const asyncify = require('express-asyncify');
 const config = require('../config');
 
@@ -13,6 +16,7 @@ api.route('/posts')
   .get(postRest.getPostList)
   .post(
     auth({secret: config.authSecret}),
+    guard.check('writer'),
     postRest.createPost
   );
 
