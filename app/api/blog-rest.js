@@ -22,7 +22,20 @@ module.exports.createPost = (req, res, next) => {
 
 module.exports.getPost = (req, res, next) => {
   Blog.findOne({ key: req.params.key })
-  	.then(post => res.json(post));
+    .then(post => res.json(post))
+    .catch(err => next(err));
+}
+
+module.exports.updatePost = async (req, res, next) => {
+  const { key } = req.params;
+
+  Blog.findOneAndUpdate({ key }, req.body, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.json(post);
+  });
 }
 
 module.exports.getPostList = (req, res, next) => {
@@ -33,7 +46,7 @@ module.exports.getPostList = (req, res, next) => {
 	}
 
   Blog.find(criteria)
-  	.sort('-createdAt')
+  	.sort('-updatedAt')
   	.exec()
   	.then(posts => res.json(posts));
 }

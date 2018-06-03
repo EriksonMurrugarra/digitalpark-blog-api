@@ -16,12 +16,17 @@ api.route('/posts')
   .get(postRest.getPostList)
   .post(
     auth({secret: config.authSecret}),
-    guard.check('writer'),
+    guard.check(['writer']),
     postRest.createPost
   );
 
 api.route('/posts/:key')
-  .get(postRest.getPost);
+  .get(postRest.getPost)
+  .put(
+    auth({secret: config.authSecret}),
+    guard.check(['writer']),
+    postRest.updatePost
+  );
 
 api.route('/topics')
   .get(topicRest.getTopicList);

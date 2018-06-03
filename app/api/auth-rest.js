@@ -28,6 +28,7 @@ const comparePassword = async (user, password) => {
 
 
 module.exports.createUser = (req, res, next) => {
+  req.body.roles = ['reader'];
   User
     .create(req.body)
     .then(user => {
