@@ -13,6 +13,7 @@ module.exports.createPost = (req, res, next) => {
   const blog = new Blog(req.body);
 
   blog.author = req.user.email;
+  blog.status = 'TO_APPROVE';
   
   blog.save().then(post => {
     saveTopics(post.topics);
@@ -38,16 +39,31 @@ module.exports.updatePost = async (req, res, next) => {
   });
 }
 
-module.exports.getPostList = (req, res, next) => {
+module.exports.getPostList = async (req, res, next) => {
 	const criteria = {};
 	const topic = req.query.topic;
 	if (topic) {
 		criteria.topics = topic ;
-	}
+  }
+  const perPage = 10;
+  let { page } = req.query || 1;  
 
+  const count = await Blog.count(criteria);
+  const pages = Math.ceil(count/perPage);
+  page = parseInt(page) -1;
   Blog.find(criteria)
-  	.sort('-updatedAt')
-  	.exec()
-  	.then(posts => res.json(posts));
+  .sort('-updatedAt')
+  .skip(perPage * page)
+  .select('key updatedAt title description topics')
+  .limit(perPage)
+  .exec()
+  .then(posts => res.json({
+    posts,
+    stats: {
+      pages,
+      perPage,
+      page: page + 1
+    }
+  }));
 }
 
